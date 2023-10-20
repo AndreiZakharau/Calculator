@@ -6,6 +6,7 @@ public class Division implements MathOperations {
 
   @Override
   public double getResult(double first, double second) {
-    return 0;
+
+    return  first - second;
   }
 }

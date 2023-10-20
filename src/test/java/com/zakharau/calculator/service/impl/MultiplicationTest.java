@@ -55,7 +55,7 @@ class MultiplicationTest {
 
     double first = 10;
     double second = -5;
-    double result = 50;
+    double result = -50;
 
     double actualResult = multiplication.getResult(first,  second);
 

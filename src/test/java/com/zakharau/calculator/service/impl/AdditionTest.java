@@ -78,8 +78,8 @@ class AdditionTest {
   void getResultAdditionIfResultIsNegative() {
 
     double first = -13.3;
-    double second = 10;
-    double result = 3.3;
+    double second = 10.3;
+    double result = -3;
 
     double actualResult = addition.getResult(first,  second);
 

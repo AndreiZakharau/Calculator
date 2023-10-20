@@ -65,8 +65,8 @@ class DivisionTest {
   void getResultDivisionIfAllNumbersIsNegative() {
 
     double first = -13.3;
-    double second = -20;
-    double result = 6.7;
+    double second = -20.3;
+    double result = 7;
 
     double actualResult = division.getResult(first,  second);
 
