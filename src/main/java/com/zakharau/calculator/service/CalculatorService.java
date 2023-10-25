@@ -1,15 +1,17 @@
 package com.zakharau.calculator.service;
 
+import com.zakharau.calculator.entity.Result;
 import com.zakharau.calculator.exception.InvalidDataException;
 import com.zakharau.calculator.model.Action;
 import com.zakharau.calculator.model.ReadModel;
 import com.zakharau.calculator.model.ViewModel;
+import com.zakharau.calculator.repositiry.ResultRepo;
 import com.zakharau.calculator.service.impl.Addition;
 import com.zakharau.calculator.service.impl.Division;
 import com.zakharau.calculator.service.impl.Multiplication;
 import com.zakharau.calculator.service.impl.Subtraction;
-import com.zakharau.calculator.util.validator.ParserExample;
 import com.zakharau.calculator.util.validator.FailValidator;
+import com.zakharau.calculator.util.validator.ParserExample;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -28,6 +30,7 @@ public class CalculatorService {
   private final Multiplication multiplication;
   private final Subtraction subtraction;
 
+  private final ResultRepo repo;
   private final FailValidator failValidator;
 
   public ViewModel calculation(ReadModel readModel) {
@@ -56,7 +59,7 @@ public class CalculatorService {
         Action isAction = Action.valueOf(action.toUpperCase());
         return switch (isAction) {
           case SAVE_TXT -> saveResultInFail(pathFail, result);
-//         case SAVE_BD -> saveResultInDataBase(result);
+          case SAVE_BD -> saveResultInDataBase(result);
           case NOT_SAVE -> String.format("Result %s was not saved", result);
           default -> "Not saved";
         };
@@ -66,6 +69,7 @@ public class CalculatorService {
       }
     }
   }
+
 
   private double getMathResult(String example) {
 
@@ -131,6 +135,12 @@ public class CalculatorService {
 
     if (failValidator.isValid(pathFail)) {
       try {
+        /*
+        if you need to rewrite the reset in the file,
+        so that there was only the last result
+        replace line 142 with
+        FileWriter writer = new FileWriter(pathFail);
+         */
         BufferedWriter writer = new BufferedWriter(new FileWriter(pathFail, true));
         writer.write(String.valueOf(result));
         writer.newLine();
@@ -144,9 +154,10 @@ public class CalculatorService {
     return String.format("Result saved in fail - '%s' ", pathFail);
   }
 
+  private String saveResultInDataBase(double result) {
+    Result newResult = new Result();
+    newResult.setResult(result);
+    newResult = repo.save(newResult);
+    return String.format("Result saved in database with id - '%s' ", newResult.getId());
+  }
 }
-
-
-
-
-
