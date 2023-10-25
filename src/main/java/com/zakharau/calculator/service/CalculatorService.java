@@ -1,5 +1,6 @@
 package com.zakharau.calculator.service;
 
+import com.zakharau.calculator.exception.InvalidDataException;
 import com.zakharau.calculator.model.ReadModel;
 import com.zakharau.calculator.model.ViewModel;
 import com.zakharau.calculator.service.impl.Addition;
@@ -27,7 +28,7 @@ public class CalculatorService {
     ViewModel viewModel = new ViewModel();
 
     if (!parser.isNotExample(expression)) {
-      throw new RuntimeException(String.format("This example '%s' have invalid elements ", expression)); //TODO create exception
+      throw new InvalidDataException(String.format("This example '%s' have invalid elements ", expression));
     } else {
       viewModel.setResult(getMathResult(expression));
 
