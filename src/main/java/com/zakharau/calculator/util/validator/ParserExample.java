@@ -1,4 +1,4 @@
-package com.zakharau.calculator.util;
+package com.zakharau.calculator.util.validator;
 
 import java.util.List;
 import java.util.regex.MatchResult;
@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ParserExample {
+public class ParserExample implements Validation<String> {
 
   public List<String> getExample(String example) {
 
@@ -18,7 +18,7 @@ public class ParserExample {
         .collect(Collectors.toList());
   }
 
-  public boolean isNotExample(String example) {
+  public boolean isValid(String example) {
 
     String regex = "^[^\\p{L}\\Q{!@#$%&,;?[]|<>~'/=}\\E]*$";
     return example.matches(regex);

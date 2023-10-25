@@ -6,7 +6,7 @@ import static org.mockito.Mockito.when;
 
 import com.zakharau.calculator.model.ReadModel;
 import com.zakharau.calculator.model.ViewModel;
-import com.zakharau.calculator.util.ParserExample;
+import com.zakharau.calculator.util.validator.ParserExample;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -29,7 +29,7 @@ class CalculatorServiceTest {
         .example(expression).build();
     ViewModel viewModel = ViewModel.builder().result(16).build();
 
-    when(parserExample.isNotExample(expression)).thenReturn(true);
+    when(parserExample.isValid(expression)).thenReturn(true);
 //    when();
 
     ViewModel actual = calculatorService.calculation(readModel);
